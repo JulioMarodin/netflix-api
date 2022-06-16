@@ -1,7 +1,5 @@
 import { DataSource } from "typeorm";
 
-import Movie from "../../src/entities/movie.entity";
-
 export const AppDataSource = new DataSource({
   type: "mysql",
   host: "localhost",
@@ -9,7 +7,7 @@ export const AppDataSource = new DataSource({
   username: "root",
   password: "1234",
   database: "netflix",
-  entities: [Movie],
+  entities: ["src/entities/*.entity.ts"],
   synchronize: true,
 });
 
