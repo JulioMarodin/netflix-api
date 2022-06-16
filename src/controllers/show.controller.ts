@@ -1,16 +1,22 @@
 import { Request, Response } from "express";
 
 import Show from "../entities/show.entity";
-import { CustomResponse } from "../middlewares/error-handler.middleware";
+import { CustomResponse } from "../interfaces/custom-response.interface";
 import ShowService from "../services/show.service";
 
 const showService = new ShowService();
 
 class ShowController {
-  public static async list(_: Request, res: Response) {
-    const shows = await showService.list();
-
-    res.send(shows);
+  public static async list(_: Request, res: CustomResponse) {
+    try {
+      const shows = await showService.list();
+  
+      res.send(shows);
+    } catch (e) {
+      if (res.errorHandler) {
+        res.errorHandler(e)
+      }
+    }
   }
 
   public static async listOne(req: Request, res: CustomResponse) {
@@ -22,8 +28,8 @@ class ShowController {
 
       res.send(shows);
     } catch (e) {
-      if (res.handle) {
-        res.handle(e, res);
+      if (res.errorHandler) {
+        res.errorHandler(e, res);
       }
     }
   }
@@ -37,18 +43,24 @@ class ShowController {
 
       res.send(shows);
     } catch (e) {
-      if (res.handle) {
-        res.handle(e, res);
+      if (res.errorHandler) {
+        res.errorHandler(e, res);
       }
     }
   }
 
-  public static async create(req: Request, res: Response) {
-    const show: Show = req.body;
-
-    const result = await showService.create(show);
-
-    res.send(result);
+  public static async create(req: Request, res: CustomResponse) {
+    try {
+      const show: Show = req.body;
+      
+      const result = await showService.create(show);
+      
+      res.send(result);
+    } catch (e) {
+      if (res.errorHandler) {
+        res.errorHandler(e)
+      }
+    }
   }
 }
 
