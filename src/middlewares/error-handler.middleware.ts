@@ -1,7 +1,19 @@
-import { Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
-const handleError = (e: any, res: Response) => {
-  res.status(e.status).json({ error: true, message: e.message });
+export interface CustomResponse extends Response {
+  handle?: Function;
+}
+
+const errorHandlerMiddlwrawe = (
+  req: Request,
+  res: CustomResponse,
+  next: NextFunction
+) => {
+  res.handle = (e: any) => {
+    res.status(e.status).json({ error: true, message: e.message });
+  };
+
+  next();
 };
 
-export default handleError;
+export default errorHandlerMiddlwrawe;

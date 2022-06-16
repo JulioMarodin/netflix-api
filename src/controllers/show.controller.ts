@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import Show from "../entities/show.entity";
-import handleError from "../middlewares/error-handler.middleware";
+import { CustomResponse } from "../middlewares/error-handler.middleware";
 import ShowService from "../services/show.service";
 
 const showService = new ShowService();
@@ -13,7 +13,7 @@ class ShowController {
     res.send(shows);
   }
 
-  public static async listOne(req: Request, res: Response) {
+  public static async listOne(req: Request, res: CustomResponse) {
     try {
       const {
         params: { id },
@@ -22,11 +22,13 @@ class ShowController {
 
       res.send(shows);
     } catch (e) {
-      handleError(e, res);
+      if (res.handle) {
+        res.handle(e, res);
+      }
     }
   }
 
-  public static async delete(req: Request, res: Response) {
+  public static async delete(req: Request, res: CustomResponse) {
     try {
       const {
         params: { id },
@@ -35,7 +37,9 @@ class ShowController {
 
       res.send(shows);
     } catch (e) {
-      handleError(e, res);
+      if (res.handle) {
+        res.handle(e, res);
+      }
     }
   }
 
