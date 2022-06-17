@@ -6,7 +6,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import databaseInitializer from "../configs/database/data-source";
 import startRoutes from "./routes";
 
-const app: express.Application = express();
+export const app: express.Application = express();
 
 const PORT = 3000;
 const opts = {

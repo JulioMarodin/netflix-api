@@ -4,7 +4,7 @@ import HTTP_STATUS from "../enums/http-status.enum";
 import HttpException from "../exceptions/http.exception";
 import { CustomResponse } from "../interfaces/custom-response.interface";
 
-const errorHandlerMiddlwrawe = (
+const errorHandlerMiddleware = (
   req: Request,
   res: CustomResponse,
   next: NextFunction
@@ -22,4 +22,4 @@ const errorHandlerMiddlwrawe = (
   next();
 };
 
-export default errorHandlerMiddlwrawe;
+export default errorHandlerMiddleware;

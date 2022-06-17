@@ -24,7 +24,7 @@ class ShowController {
       const {
         params: { id },
       } = req;
-      const shows = showService.listOne(Number(id));
+      const shows = await showService.listOne(Number(id));
 
       res.send(shows);
     } catch (e) {
@@ -39,7 +39,7 @@ class ShowController {
       const {
         params: { id },
       } = req;
-      const shows = showService.delete(Number(id));
+      const shows = await showService.delete(Number(id));
 
       res.send(shows);
     } catch (e) {
