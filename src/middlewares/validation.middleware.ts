@@ -1,15 +1,26 @@
-import { NextFunction, Request, Response } from "express";
+import { Request } from "express";
 import { Schema } from "joi";
 
-const validationMiddleware =
-  (schema: Schema) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await schema.validateAsync(req.body);
+import ValidationException from "../exceptions/validation.exception";
+import { CustomResponse } from "../interfaces/custom-response.interface";
 
-      next();
+const validationMiddleware =
+  (schema: Schema) => async (req: Request, res: CustomResponse) => {
+    try {
+      const validated = await schema.validateAsync(req.body, {
+        abortEarly: false,
+      });
+
+      if (validated.error) {
+        throw new ValidationException(
+          "Campos inválidos",
+          validated.error?.details
+        );
+      }
     } catch (e: any) {
-      res.status(401).json({ error: true, message: e.message });
+      if (res.errorHandler) {
+        res.errorHandler(e);
+      }
     }
   };
 
