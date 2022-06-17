@@ -19,12 +19,12 @@
   "rules": {
     "camelcase": "off",
     "import/no-unresolved": "error",
-    "@typescript-eslint/ban-types": [
-      "error",
-      {
-        "Function": false
-      }
-    ],
+    // "@typescript-eslint/ban-types": [
+    //   "error",
+    //   {
+    //     "Function": false
+    //   }
+    // ],
     "@typescript-eslint/naming-convention": [
       "error",
       {

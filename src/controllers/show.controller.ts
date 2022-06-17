@@ -10,11 +10,11 @@ class ShowController {
   public static async list(_: Request, res: CustomResponse) {
     try {
       const shows = await showService.list();
-  
+
       res.send(shows);
     } catch (e) {
       if (res.errorHandler) {
-        res.errorHandler(e)
+        res.errorHandler(e);
       }
     }
   }
@@ -52,13 +52,13 @@ class ShowController {
   public static async create(req: Request, res: CustomResponse) {
     try {
       const show: Show = req.body;
-      
+
       const result = await showService.create(show);
-      
+
       res.send(result);
     } catch (e) {
       if (res.errorHandler) {
-        res.errorHandler(e)
+        res.errorHandler(e);
       }
     }
   }
