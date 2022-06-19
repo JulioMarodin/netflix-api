@@ -27,6 +27,7 @@ showsRouter.delete(
 
 showsRouter.post(
   "/shows",
+  passport.authenticate("jwt", { session: false }),
   validationMiddleware(CreateShowSchema),
   ShowController.create
 );
