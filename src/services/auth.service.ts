@@ -1,8 +1,11 @@
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 import UnauthorizedException from "../exceptions/unauthorized.exception";
 import UserService from "./user.service";
+
+dotenv.config();
 
 class AuthService {
   /**
@@ -15,7 +18,16 @@ class AuthService {
    */
 
   async login(email: string, password: string) {
+    /**
+     * Logs user in
+     *
+     * @param email user email
+     * @param password user password
+     * @returns LoginResponse
+     *
+     */
     const userService = new UserService();
+    const secret = process.env.SECRET || "";
 
     const user = await userService.getUserByEmail(email);
 
@@ -31,7 +43,7 @@ class AuthService {
 
     const token = jwt.sign(
       { sub: user.id, iat: Date.now(), email: user.email },
-      "churros"
+      secret
     );
 
     return { token };

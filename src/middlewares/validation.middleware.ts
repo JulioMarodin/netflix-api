@@ -1,11 +1,12 @@
-import { Request } from "express";
+import { NextFunction, Request } from "express";
 import { Schema } from "joi";
 
 import ValidationException from "../exceptions/validation.exception";
 import { CustomResponse } from "../interfaces/custom-response.interface";
 
 const validationMiddleware =
-  (schema: Schema) => async (req: Request, res: CustomResponse) => {
+  (schema: Schema) =>
+  async (req: Request, res: CustomResponse, next: NextFunction) => {
     try {
       const validated = await schema.validateAsync(req.body, {
         abortEarly: false,
@@ -17,6 +18,8 @@ const validationMiddleware =
           validated.error?.details
         );
       }
+
+      next();
     } catch (e: any) {
       if (res.errorHandler) {
         res.errorHandler(e);

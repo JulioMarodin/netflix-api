@@ -19,6 +19,7 @@
   "rules": {
     "camelcase": "off",
     "import/no-unresolved": "error",
+    "no-return-await": "off",
     // "@typescript-eslint/ban-types": [
     //   "error",
     //   {

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import Show from "../entities/show.entity";
 import { CustomResponse } from "../interfaces/custom-response.interface";
-import ShowService from "../services/show.service";
+import { ShowService } from "../services";
 
 const showService = new ShowService();
 
@@ -24,7 +24,7 @@ class ShowController {
       const {
         params: { id },
       } = req;
-      const shows = showService.listOne(Number(id));
+      const shows = await showService.listOne(Number(id));
 
       res.send(shows);
     } catch (e) {
@@ -39,9 +39,9 @@ class ShowController {
       const {
         params: { id },
       } = req;
-      const shows = showService.delete(Number(id));
+      await showService.delete(Number(id));
 
-      res.send(shows);
+      res.json({ deleted: true });
     } catch (e) {
       if (res.errorHandler) {
         res.errorHandler(e, res);
