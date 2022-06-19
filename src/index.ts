@@ -1,9 +1,10 @@
 import "reflect-metadata";
+import "dotenv/config";
 import express from "express";
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 
-import databaseInitializer from "../configs/database/data-source";
+import databaseInitializer from "./infrastructure/database/data-source";
 import startRoutes from "./routes";
 
 export const app: express.Application = express();
@@ -11,7 +12,7 @@ export const app: express.Application = express();
 const PORT = 3000;
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "churros",
+  secretOrKey: process.env.SECRET,
 };
 
 const strategy = new JwtStrategy(opts, function (payload, done) {

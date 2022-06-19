@@ -13,9 +13,17 @@ showsRouter.get(
   ShowController.list
 );
 
-showsRouter.get("/shows/:id", ShowController.listOne);
+showsRouter.get(
+  "/shows/:id",
+  passport.authenticate("jwt", { session: false }),
+  ShowController.listOne
+);
 
-showsRouter.delete("/shows/:id", ShowController.delete);
+showsRouter.delete(
+  "/shows/:id",
+  passport.authenticate("jwt", { session: false }),
+  ShowController.delete
+);
 
 showsRouter.post(
   "/shows",

@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import { Repository } from "typeorm";
 
-import { AppDataSource } from "../../configs/database/data-source";
 import User from "../entities/user.entity";
 import BadRequestException from "../exceptions/bad-request.exception";
+import { AppDataSource } from "../infrastructure/database/data-source";
 import { createUserDTO } from "../interfaces/user-dto.interface";
 
 class UserService {

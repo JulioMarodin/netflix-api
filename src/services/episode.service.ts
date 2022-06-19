@@ -1,9 +1,9 @@
 import { Repository } from "typeorm";
 
-import { AppDataSource } from "../../configs/database/data-source";
 import { Show } from "../entities";
 import Episode from "../entities/episode.entity";
 import BadRequestException from "../exceptions/bad-request.exception";
+import { AppDataSource } from "../infrastructure/database/data-source";
 
 type CreateEpisodeDTO = Omit<Episode, "id"> & { showId: number };
 
