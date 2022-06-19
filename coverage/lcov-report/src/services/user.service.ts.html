@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.4% </span>
+                <span class="strong">61.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/54</span>
+                <span class='fraction'>33/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.4% </span>
+                <span class="strong">61.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/54</span>
+                <span class='fraction'>33/54</span>
             </div>
         
             
@@ -133,6 +133,12 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,20 +146,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -174,9 +174,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from "bcrypt";
 import { Repository } from "typeorm";
 &nbsp;
-import { AppDataSource } from "../../configs/database/data-source";
 import User from "../entities/user.entity";
 import BadRequestException from "../exceptions/bad-request.exception";
+import { AppDataSource } from "../infrastructure/database/data-source";
 import { createUserDTO } from "../interfaces/user-dto.interface";
 &nbsp;
 class UserService {
@@ -186,15 +186,15 @@ class UserService {
     this.userRepository = AppDataSource.getRepository(User);
   }
 &nbsp;
-  private async <span class="fstat-no" title="function not covered" >isEmailInDatabase(email: string) {</span>
-<span class="cstat-no" title="statement not covered" >    const userFound = await this.userRepository.findOne({ where: { email } });</span>
-<span class="cstat-no" title="statement not covered" ></span>
+  private async isEmailInDatabase(email: string) {
+    const userFound = await this.userRepository.findOne({ where: { email } });
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span>
 <span class="cstat-no" title="statement not covered" >    return !!userFound;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
-  async getUserByEmail(email: string) {
-    const userFound = await this.userRepository.findOne({ where: { email } });
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span>
+  async <span class="fstat-no" title="function not covered" >getUserByEmail(email: string) {</span>
+<span class="cstat-no" title="statement not covered" >    const userFound = await this.userRepository.findOne({ where: { email } });</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return userFound;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -205,10 +205,10 @@ class UserService {
    * @returns user created
    *
    */
-  async <span class="fstat-no" title="function not covered" >create(createUserDTO: createUserDTO) {</span>
-<span class="cstat-no" title="statement not covered" >    const { email, password } = createUserDTO;</span>
-<span class="cstat-no" title="statement not covered" >    const isEmailInDatabase = await this.isEmailInDatabase(email);</span>
-<span class="cstat-no" title="statement not covered" ></span>
+  async create(createUserDTO: createUserDTO) {
+    const { email, password } = createUserDTO;
+    const isEmailInDatabase = await this.isEmailInDatabase(email);
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span>
 <span class="cstat-no" title="statement not covered" >    if (isEmailInDatabase) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestException("User already in database");</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -232,7 +232,7 @@ export default UserService;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jun 18 2022 14:26:14 GMT-0300 (Brasilia Standard Time)
+                at Sun Jun 19 2022 14:16:55 GMT-0300 (Brasilia Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
