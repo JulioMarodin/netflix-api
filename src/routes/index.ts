@@ -1,3 +1,4 @@
+import cors from "cors";
 import express, { Application } from "express";
 import morgan from "morgan";
 
@@ -13,6 +14,7 @@ const routes = [showsRouter, authRouter, UserRouter, EpisodeRouter, ListRouter];
 const jsonParserMiddleware = express.json();
 
 function startRoutes(app: Application) {
+  app.use(cors());
   app.use(jsonParserMiddleware);
   app.use(morgan("tiny"));
   app.use(errorHandlerMiddleware);
